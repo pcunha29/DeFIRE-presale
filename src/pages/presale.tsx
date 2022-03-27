@@ -6,43 +6,30 @@ import {
   Typography,
   BackTop,
   Card,
-  Input,
   Row,
   Col,
   Space,
 } from "antd";
 import { UpOutlined } from "@ant-design/icons";
 
-import defireLogo from "../images/defire.png";
+import PhaseInfo from "../components/phaseInfo/phaseInfo";
+import defireLogo from "../images/defire_color.png";
 
 function Presale() {
-  const { Header, Content } = Layout;
-  const { Title, Text } = Typography;
+  const { Content } = Layout;
+  const { Text } = Typography;
+
   return (
     <>
-      <Header className="header">
-        <Image width={200} src={defireLogo} />
-      </Header>
       <Content className="content">
-        <Space align="center" direction="vertical">
-          <Card>
-            <Row>
-              <Col span={24}>
-                <Title>Phase info -- CountDown</Title>
-              </Col>
-              <Col span={24}>
-                <Button>Change Network</Button>
-                <Button>Connect</Button>
-              </Col>
-              <Col span={24}>
-                <Input width={200} placeholder="Deposit" />
-                <Button>Deposit</Button>
-              </Col>
-              <Col span={24}>
-                <Button>Aprove Native</Button>
-              </Col>
-            </Row>
-          </Card>
+        <Space className="container" align="center" direction="vertical">
+          <Image
+            className="logo"
+            preview={false}
+            width={300}
+            src={defireLogo}
+          />
+          <PhaseInfo />
 
           <Row>
             <Col span={24}>
