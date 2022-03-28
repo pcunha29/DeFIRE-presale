@@ -1,4 +1,4 @@
-import "../../styles/phaseInfo.less";
+import "../styles/phaseInfo.less";
 import { useState } from "react";
 import Countdown from "react-countdown";
 import moment from "moment";
