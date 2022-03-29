@@ -26,27 +26,25 @@ function Referral() {
   };
   return (
     <>
-      <Card className="referral-card">
-        <Row>
-          <Col className="referral-wrapper" span={24}>
-            <Input
-              suffix={suffix}
-              bordered={false}
-              placeholder="Community Referral"
-              onChange={(e) => setReferral(e.target.value)}
-            />
+      <Row>
+        <Col className="referral-wrapper" span={24}>
+          <Input
+            suffix={suffix}
+            bordered={false}
+            placeholder="Community Referral"
+            onChange={(e) => setReferral(e.target.value)}
+          />
 
-            <Button
-              disabled={!isValid}
-              type="primary"
-              shape="round"
-              onClick={useReferral}
-            >
-              Use referral
-            </Button>
-          </Col>
-        </Row>
-      </Card>
+          <Button
+            disabled={!isValid}
+            type="primary"
+            shape="round"
+            onClick={useReferral}
+          >
+            Use referral
+          </Button>
+        </Col>
+      </Row>
     </>
   );
 }

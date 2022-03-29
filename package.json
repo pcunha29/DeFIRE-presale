@@ -13,6 +13,7 @@
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
     "antd": "^4.19.4",
+    "bignumber.js": "^9.0.2",
     "craco-less": "^2.0.0",
     "css-loader": "^6.7.1",
     "less": "^4.1.2",

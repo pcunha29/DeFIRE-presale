@@ -15,7 +15,7 @@ function UserStats() {
           <Col span={24}>
             <Col className="stats-info" span={24}>
               <Text>Network: </Text>
-              <Text>ETH</Text>
+              <Text>Ethereum</Text>
             </Col>
             <Col className="stats-info" span={24}>
               <Text>FLARE: </Text>
@@ -23,7 +23,7 @@ function UserStats() {
             </Col>
             <Col className="stats-info" span={24}>
               <Text>Total Amount Deposited: </Text>
-              <Text>00000 Native</Text>
+              <Text>00000 USDC</Text>
             </Col>
             <Col className="stats-info" span={24}>
               <Text>Phase One: </Text>
@@ -38,7 +38,7 @@ function UserStats() {
               <Text>XXX DEFIRE</Text>
             </Col>
             <Col className="stats-info" span={24}>
-              <Text>Referal: </Text>
+              <Text>Your Referral: </Text>
               <Text>XXX DEFIRE</Text>
             </Col>
           </Col>
