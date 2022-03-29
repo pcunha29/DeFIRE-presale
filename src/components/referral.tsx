@@ -1,6 +1,6 @@
 import "../styles/referral.less";
 import { useState, useEffect } from "react";
-import { Input, Row, Col, Button, Card } from "antd";
+import { Input, Row, Col, Button } from "antd";
 import { CheckCircleOutlined } from "@ant-design/icons";
 
 function Referral() {

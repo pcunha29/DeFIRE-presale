@@ -3,15 +3,19 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import Presale from "./pages/presale";
 import reportWebVitals from "./reportWebVitals";
+import { MoralisProvider } from "react-moralis";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Presale />
+    <MoralisProvider
+      //move this information into a .env file
+      serverUrl="https://kmhs9umn1jyd.usemoralis.com:2053/server"
+      appId="fZxoF4WnqwWkxc1Kbk5rTQXvusS0vFYjSpvkffyd"
+    >
+      <Presale />
+    </MoralisProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
