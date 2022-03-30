@@ -16,10 +16,6 @@ function PhaseInfo() {
   let date = "2022-04-01";
   var remainingTime = moment.duration(moment(date).diff(moment()));
 
-  const connectNetwork = () => {
-    console.log("Connected to:", network, "network");
-  };
-
   const suffix = isValid ? (
     <CheckCircleOutlined style={{ color: "#ecf4ff" }} />
   ) : (
@@ -51,22 +47,7 @@ function PhaseInfo() {
               />
             </Title>
           </Col>
-          <Col className="network-wrapper" span={24}>
-            <Select
-              className="dropdown-style"
-              bordered={false}
-              placeholder="Select a network"
-              onChange={(e) => setNetwork(e)}
-              dropdownClassName="dropdown-opened"
-            >
-              <Option value="ethereum">Ethereum</Option>
-              <Option value="polygon">Polygon</Option>
-              <Option value="fantom">Fantom</Option>
-            </Select>
-            <Button type="primary" shape="round" onClick={connectNetwork}>
-              Connect
-            </Button>
-          </Col>
+
           <Col className="deposit-wrapper" span={24}>
             <Col className="native-wrapper" span={24}>
               <Button

@@ -1,0 +1,27 @@
+@import "~antd/dist/antd.less";
+@import "./variables-light.less";
+
+.content-light {
+  background-color: @dark-color !important ;
+
+  .container {
+    border: 4px solid @primary-color;
+  }
+}
+
+.backTop-light {
+  background-color: @soft-blue;
+  color: @aqua;
+}
+
+//General styling
+
+.ant-select-dropdown {
+  background: @dark-color;
+  > div {
+    background: @dark-color;
+  }
+}
+.ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  background-color: @primary-color;
+}

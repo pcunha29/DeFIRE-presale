@@ -1,10 +1,11 @@
 import "../styles/presale.less";
+import "../styles/presale-light.less";
 import { useState } from "react";
-import { Layout, Image, BackTop, Space, Button, Tag } from "antd";
+import { Layout, Image, BackTop, Space, Button, Tag, Switch, Col } from "antd";
 import { UpOutlined } from "@ant-design/icons";
-import { useMoralis } from "react-moralis";
-
+//import { useMoralis, useWeb3Contract } from "react-moralis";
 //import gameOnStable from "../contracts/gameOnStable.json";
+import Account from "../components/Account/Account";
 
 import PhaseInfo from "../components/phaseInfo";
 import UserStats from "../components/userStats";
@@ -12,90 +13,57 @@ import {
   WalletOutlined,
   DisconnectOutlined,
   ExclamationCircleOutlined,
+  WarningOutlined,
 } from "@ant-design/icons";
-
+import { useThemeSwitcher } from "react-css-theme-switcher";
 import defireLogo from "../images/defire_color.png";
 
 function Presale() {
-  const { authenticate, isAuthenticated, logout } = useMoralis();
+  // const { authenticate, isAuthenticated, logout } = useMoralis();
   const { Content } = Layout;
 
-  //const psDFIRE_ABI: any = gameOnStable.psDFIRE_abi;
-  //const gameOn_ABI: any = gameOnStable.DeFIREGameOn_abi;
+  const [isDarkMode, setIsDarkMode] = useState();
+  const { switcher, currentTheme, status, themes } = useThemeSwitcher();
 
-  //const contractAddress = "0xB3162b9c5d647Ad9d694B5Ce21f72F8Dbe0808BC";
-
-  const [userInfo, setUserInfo]: any = useState(
-    localStorage.getItem("userInfo")
-  );
-
-  console.log("login?: ", isAuthenticated, userInfo);
-  const login = async () => {
-    if (!isAuthenticated) {
-      await authenticate({ signingMessage: "Log in using Moralis" })
-        .then(function (user) {
-          setUserInfo(user?.get("ethAddress"));
-          //temp store solution
-          localStorage.setItem("userInfo", user?.get("ethAddress"));
-        })
-        .catch(function (error) {
-          console.log(error);
-          setUserInfo("");
-        });
-    }
+  const toggleTheme = (isChecked: any) => {
+    setIsDarkMode(isChecked);
+    switcher({ theme: isChecked ? themes.dark : themes.light });
   };
 
-  const logOut = async () => {
-    await logout();
-    setUserInfo("");
-    localStorage.removeItem("userInfo");
-  };
+  // Avoid theme change flicker
+  if (status === "loading") {
+    return null;
+  }
 
   return (
     <>
-      <Content className="content">
+      <Content
+        // className={
+        //   currentTheme === "dark" ? "content" : "content content-light"
+        // }
+        className="content"
+      >
+        {/* <Switch checked={isDarkMode} onChange={toggleTheme} />
+        <h1>Changing theme here {currentTheme}</h1> */}
         <Space
           size={20}
+          // className={
+          //   currentTheme === "dark" ? "container" : "container container-light"
+          // }
           className="container"
           align="center"
           direction="vertical"
         >
-          {!isAuthenticated ? (
-            <Button
-              icon={<ExclamationCircleOutlined />}
-              onClick={login}
-              className="action-buttons"
-              type="text"
-            >
-              Connect Wallet
-            </Button>
-          ) : (
-            <Button
-              icon={<DisconnectOutlined />}
-              onClick={logOut}
-              className="action-buttons"
-              type="text"
-            >
-              Disconnect
-            </Button>
-          )}
-
-          {userInfo && (
-            <Tag
-              className="user"
-              color={"transparent"}
-              icon={<WalletOutlined />}
-            >
-              {userInfo}
-            </Tag>
-          )}
-
           <Image
             className="logo"
             preview={false}
             width={300}
             src={defireLogo}
           />
+          <Col className="connect-wallet">
+            <Account />
+          </Col>
+
           <PhaseInfo />
           <UserStats />
         </Space>
