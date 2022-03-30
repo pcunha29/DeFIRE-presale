@@ -1,25 +1,17 @@
 import "../styles/phaseInfo.less";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Countdown from "react-countdown";
 import moment from "moment";
-import {
-  Button,
-  Typography,
-  Card,
-  Input,
-  Row,
-  Col,
-  Select,
-  Space,
-  Radio,
-} from "antd";
+import { Button, Typography, Card, Input, Row, Col, Select, Space } from "antd";
+import { CheckCircleOutlined } from "@ant-design/icons";
 
 function PhaseInfo() {
-  const { Title, Paragraph } = Typography;
+  const { Title } = Typography;
   const { Option } = Select;
   const [network, setNetwork]: any = useState();
-  const [tokenType, setTokenType] = useState("native");
   const [approvedToken, setApproved] = useState(false);
+  const [referralInput, setReferral]: any = useState();
+  const [isValid, setIsValid]: any = useState(false);
 
   let date = "2022-04-01";
   var remainingTime = moment.duration(moment(date).diff(moment()));
@@ -28,17 +20,22 @@ function PhaseInfo() {
     console.log("Connected to:", network, "network");
   };
 
-  const onChange = (e: any) => {
-    setTokenType(e.target.value);
-  };
+  const suffix = isValid ? (
+    <CheckCircleOutlined style={{ color: "#ecf4ff" }} />
+  ) : (
+    <span />
+  );
 
-  const stableCoin = () => {
-    console.log("stable coin selected");
-    setApproved(true);
-  };
-  const nativeToken = () => {
-    setApproved(false);
-    console.log("native token selected");
+  useEffect(() => {
+    if (referralInput && referralInput.length > 10) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  }, [referralInput]);
+
+  const useReferral = () => {
+    console.log("your referral code is: ", referralInput);
   };
 
   return (
@@ -71,30 +68,32 @@ function PhaseInfo() {
             </Button>
           </Col>
           <Col className="deposit-wrapper" span={24}>
-            <Col className="token-type" span={24}>
-              <Paragraph>What token do you prefer to use as deposit?</Paragraph>
-              <Radio.Group onChange={onChange} value={tokenType}>
-                <Space>
-                  <Radio onClick={nativeToken} value={"native"}>
-                    Native Tokens (ETH, MATIC, etc)
-                  </Radio>
-                  <Radio onClick={stableCoin} value={"stable"}>
-                    Stable Coin (USDC, USDT)
-                  </Radio>
-                </Space>
-              </Radio.Group>
+            <Col className="native-wrapper" span={24}>
+              <Button
+                type="primary"
+                shape="round"
+                onClick={() => setApproved(false)}
+              >
+                Approve Stable Coin
+              </Button>
             </Col>
-            {tokenType && tokenType === "stable" && (
-              <Col className="native-wrapper" span={24}>
-                <Button
-                  type="primary"
-                  shape="round"
-                  onClick={() => setApproved(false)}
-                >
-                  Approve Stable Coin
-                </Button>
-              </Col>
-            )}
+            <Col className="referral-wrapper" span={24}>
+              <Input
+                suffix={suffix}
+                bordered={false}
+                placeholder="Community Referral"
+                onChange={(e) => setReferral(e.target.value)}
+              />
+
+              <Button
+                disabled={!isValid}
+                type="primary"
+                shape="round"
+                onClick={useReferral}
+              >
+                Use referral
+              </Button>
+            </Col>
             <Col span={24} style={{ textAlign: "center" }}>
               <Input
                 bordered={false}
