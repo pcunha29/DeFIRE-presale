@@ -94,7 +94,7 @@ function Presale() {
             icon={<WarningOutlined />}
             onClick={() => runEligibility}
           >
-            Test myEligibility
+            Test balanceOf
           </Button>
         </Col>
 
