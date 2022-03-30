@@ -1,8 +1,11 @@
 import "../styles/presale.less";
 import { useState } from "react";
-import { Layout, Image, BackTop, Space, Button, Tag } from "antd";
-import { UpOutlined } from "@ant-design/icons";
+import { Layout, Image, BackTop, Space, Button, Tag, Col } from "antd";
+import { UpOutlined, WarningOutlined } from "@ant-design/icons";
 import { useMoralis } from "react-moralis";
+import { useWeb3Contract } from "react-moralis";
+
+import gameOnStable from "../contracts/gameOnStable.json";
 
 import PhaseInfo from "../components/phaseInfo";
 import Referral from "../components/referral";
@@ -18,14 +21,23 @@ import defireLogo from "../images/defire_color.png";
 function Presale() {
   const { authenticate, isAuthenticated, logout } = useMoralis();
   const { Content } = Layout;
+  const ABI: any = gameOnStable.abi;
 
-  const [userInfo, setUserInfo]: any = useState();
-  console.log("login feito?: ", isAuthenticated, userInfo);
+  //move it to .env file
+  const contractAddress = "0xB3162b9c5d647Ad9d694B5Ce21f72F8Dbe0808BC";
+  const testWalletAddress = "0x24dFe909515662f897D530CbB7C2C554cEfb13E5";
+  const [userInfo, setUserInfo]: any = useState(
+    localStorage.getItem("userInfo")
+  );
+
+  console.log("login?: ", isAuthenticated, userInfo);
   const login = async () => {
     if (!isAuthenticated) {
       await authenticate({ signingMessage: "Log in using Moralis" })
         .then(function (user) {
           setUserInfo(user?.get("ethAddress"));
+          //temp store solution
+          localStorage.setItem("userInfo", user?.get("ethAddress"));
         })
         .catch(function (error) {
           console.log(error);
@@ -37,11 +49,55 @@ function Presale() {
   const logOut = async () => {
     await logout();
     setUserInfo("");
+    localStorage.removeItem("userInfo");
   };
+
+  const {
+    runContractFunction: runEligibility,
+    data,
+    error,
+    isLoading,
+    isFetching,
+  } = useWeb3Contract({
+    contractAddress: contractAddress,
+    functionName: "myEligibility",
+    abi: ABI,
+  });
+  const { runContractFunction: balanceOf, data: dataSymbol } = useWeb3Contract({
+    contractAddress: contractAddress,
+    functionName: "balanceOf",
+    abi: ABI,
+    params: {
+      address: testWalletAddress,
+    },
+  });
 
   return (
     <>
+      {isFetching && console.log("========isFetching======== ")}
+      {isLoading && console.log("========isLoading======== ")}
+      {data && console.log("Data Eligibility!", data)}
+      {dataSymbol && console.log("Data Symbol!", data)}
+      {error && console.log("error: ", error)}
+
       <Content className="content">
+        <Col className="testBtns">
+          <Button
+            type="text"
+            icon={<WarningOutlined />}
+            onClick={() => balanceOf}
+          >
+            Test symbol
+          </Button>
+          <Button
+            type="text"
+            icon={<WarningOutlined />}
+            onClick={() => runEligibility}
+          >
+            Test myEligibility
+          </Button>
+        </Col>
+
         <Space
           size={20}
           className="container"
