@@ -21,11 +21,14 @@ import defireLogo from "../images/defire_color.png";
 function Presale() {
   const { authenticate, isAuthenticated, logout } = useMoralis();
   const { Content } = Layout;
-  const ABI: any = gameOnStable.abi;
+
+  //const psDFIRE_ABI: any = gameOnStable.psDFIRE_abi;
+  const gameOn_ABI: any = gameOnStable.DeFIREGameOn_abi;
 
   //move it to .env file
   const contractAddress = "0xB3162b9c5d647Ad9d694B5Ce21f72F8Dbe0808BC";
   const testWalletAddress = "0x24dFe909515662f897D530CbB7C2C554cEfb13E5";
+
   const [userInfo, setUserInfo]: any = useState(
     localStorage.getItem("userInfo")
   );
@@ -53,21 +56,22 @@ function Presale() {
   };
 
   const {
-    runContractFunction: runEligibility,
+    runContractFunction: seedPhase,
     data,
     error,
     isLoading,
     isFetching,
   } = useWeb3Contract({
     contractAddress: contractAddress,
-    functionName: "myEligibility",
-    abi: ABI,
+    functionName: "seedPhase",
+    abi: gameOn_ABI,
   });
-  const { runContractFunction: balanceOf, data: dataSymbol } = useWeb3Contract({
+  const { runContractFunction: hasRole, data: dataSymbol } = useWeb3Contract({
     contractAddress: contractAddress,
-    functionName: "balanceOf",
-    abi: ABI,
+    functionName: "hasRole",
+    abi: gameOn_ABI,
     params: {
+      role: "contributor",
       address: testWalletAddress,
     },
   });
@@ -85,16 +89,16 @@ function Presale() {
           <Button
             type="text"
             icon={<WarningOutlined />}
-            onClick={() => balanceOf}
+            onClick={() => hasRole}
           >
-            Test symbol
+            Test hasRole
           </Button>
           <Button
             type="text"
             icon={<WarningOutlined />}
-            onClick={() => runEligibility}
+            onClick={() => seedPhase}
           >
-            Test balanceOf
+            Test hasRole
           </Button>
         </Col>
 

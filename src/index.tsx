@@ -9,8 +9,8 @@ ReactDOM.render(
   <React.StrictMode>
     <MoralisProvider
       //move this information into a .env file
-      serverUrl="https://kmhs9umn1jyd.usemoralis.com:2053/server"
-      appId="fZxoF4WnqwWkxc1Kbk5rTQXvusS0vFYjSpvkffyd"
+      serverUrl="https://x1gjh967lp4m.usemoralis.com:2053/server"
+      appId="gnoA34U3e24uNjqHqSF1to1tzoOGzJxdoAsrgNyw"
     >
       <Presale />
     </MoralisProvider>
