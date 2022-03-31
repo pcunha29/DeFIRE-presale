@@ -1,7 +1,7 @@
 import "../styles/presale.less";
 import "../styles/presale-light.less";
 import { useState } from "react";
-import { Layout, Image, BackTop, Space, Switch, Col } from "antd";
+import { Layout, Image, BackTop, Space, Switch, Col, Typography } from "antd";
 import { UpOutlined } from "@ant-design/icons";
 
 import Account from "../components/Account/Account";
@@ -14,8 +14,8 @@ import defireLogo from "../images/defire_color.png";
 import defireLight from "../images/defire_light.png";
 
 function Presale() {
-  // const { authenticate, isAuthenticated, logout } = useMoralis();
   const { Content } = Layout;
+  const { Text } = Typography;
 
   const [isDarkMode, setIsDarkMode] = useState(true);
   const { switcher, currentTheme, status, themes } = useThemeSwitcher();
@@ -29,6 +29,13 @@ function Presale() {
   if (status === "loading") {
     return null;
   }
+
+  const customStyle = {
+    style:
+      currentTheme === "dark"
+        ? { background: "#182120", color: "#ecf4ff", padding: "4px" }
+        : { background: "#ecf4ff", color: "#182120", padding: "4px" },
+  };
 
   return (
     <>
@@ -52,7 +59,9 @@ function Presale() {
             src={currentTheme === "dark" ? defireLogo : defireLight}
           />
           <Col className="dark-light">
+            <Text style={customStyle.style}>&#x2600;</Text>
             <Switch checked={isDarkMode} onChange={toggleTheme} />
+            <Text style={customStyle.style}>&#127766;</Text>
           </Col>
           <Col className="connect-wallet">
             <Account />

@@ -52,7 +52,7 @@ function Account() {
     return (
       <>
         <div onClick={() => setIsAuthModalVisible(true)}>
-          <Button type="text" shape="round">
+          <Button type="primary" shape="round">
             Connect
           </Button>
         </div>
