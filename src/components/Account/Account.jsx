@@ -11,13 +11,18 @@ import { connectors } from "./config";
 const styles = {
   account: {
     height: "42px",
-    padding: "0 15px",
+
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     width: "fit-content",
     borderRadius: "12px",
     cursor: "pointer",
+    position: "relative",
+    top: "-4px",
+  },
+  blockie: {
+    margin: "4px",
   },
   text: {
     color: "#21BF96",
@@ -107,7 +112,7 @@ function Account() {
   return (
     <>
       <div style={styles.account} onClick={() => setIsModalVisible(true)}>
-        <Button type="text" shape="round">
+        <Button type="primary" shape="round">
           {getEllipsisTxt(account, 6)}
         </Button>
         <Blockie currentWallet scale={3} />
