@@ -1,14 +1,15 @@
 import "../styles/phaseInfo.less";
+import "../styles/phaseInfo-light.less";
 import { useState, useEffect } from "react";
 import Countdown from "react-countdown";
 import moment from "moment";
-import { Button, Typography, Card, Input, Row, Col, Select, Space } from "antd";
+import { Button, Typography, Card, Input, Row, Col, Space } from "antd";
 import { CheckCircleOutlined } from "@ant-design/icons";
 
-function PhaseInfo() {
+function PhaseInfo(props: any) {
+  const { currentTheme } = props;
+
   const { Title } = Typography;
-  const { Option } = Select;
-  const [network, setNetwork]: any = useState();
   const [approvedToken, setApproved] = useState(false);
   const [referralInput, setReferral]: any = useState();
   const [isValid, setIsValid]: any = useState(false);
@@ -17,7 +18,11 @@ function PhaseInfo() {
   var remainingTime = moment.duration(moment(date).diff(moment()));
 
   const suffix = isValid ? (
-    <CheckCircleOutlined style={{ color: "#ecf4ff" }} />
+    <CheckCircleOutlined
+      style={
+        currentTheme === "dark" ? { color: "#ecf4ff" } : { color: "#182120" }
+      }
+    />
   ) : (
     <span />
   );
@@ -36,7 +41,16 @@ function PhaseInfo() {
 
   return (
     <>
-      <Card className="phase-card">
+      <Card
+        bodyStyle={
+          currentTheme === "dark"
+            ? { background: "#182120", color: "#ecf4ff" }
+            : { background: "#ecf4ff", color: "#182120" }
+        }
+        className={
+          currentTheme === "dark" ? "phase-card" : "phase-card phase-card-light"
+        }
+      >
         <Row>
           <Col className="title-wrapper" span={24}>
             <Title className="title">
@@ -48,8 +62,22 @@ function PhaseInfo() {
             </Title>
           </Col>
 
-          <Col className="deposit-wrapper" span={24}>
-            <Col className="native-wrapper" span={24}>
+          <Col
+            className={
+              currentTheme === "dark"
+                ? "deposit-wrapper"
+                : "deposit-wrapper deposit-wrapper-light"
+            }
+            span={24}
+          >
+            <Col
+              className={
+                currentTheme === "dark"
+                  ? "native-wrapper"
+                  : "native-wrapper native-wrapper-light"
+              }
+              span={24}
+            >
               <Button
                 type="primary"
                 shape="round"
@@ -58,7 +86,14 @@ function PhaseInfo() {
                 Approve Stable Coin
               </Button>
             </Col>
-            <Col className="referral-wrapper" span={24}>
+            <Col
+              className={
+                currentTheme === "dark"
+                  ? "referral-wrapper"
+                  : "referral-wrapper referral-wrapper-light"
+              }
+              span={24}
+            >
               <Input
                 suffix={suffix}
                 bordered={false}

@@ -3,26 +3,21 @@ import "../styles/presale-light.less";
 import { useState } from "react";
 import { Layout, Image, BackTop, Space, Button, Tag, Switch, Col } from "antd";
 import { UpOutlined } from "@ant-design/icons";
-//import { useMoralis, useWeb3Contract } from "react-moralis";
-//import gameOnStable from "../contracts/gameOnStable.json";
+
 import Account from "../components/Account/Account";
 
 import PhaseInfo from "../components/phaseInfo";
 import UserStats from "../components/userStats";
-import {
-  WalletOutlined,
-  DisconnectOutlined,
-  ExclamationCircleOutlined,
-  WarningOutlined,
-} from "@ant-design/icons";
+
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import defireLogo from "../images/defire_color.png";
+import defireLight from "../images/defire_light.png";
 
 function Presale() {
   // const { authenticate, isAuthenticated, logout } = useMoralis();
   const { Content } = Layout;
 
-  const [isDarkMode, setIsDarkMode] = useState();
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const { switcher, currentTheme, status, themes } = useThemeSwitcher();
 
   const toggleTheme = (isChecked: any) => {
@@ -38,19 +33,15 @@ function Presale() {
   return (
     <>
       <Content
-        // className={
-        //   currentTheme === "dark" ? "content" : "content content-light"
-        // }
-        className="content"
+        className={
+          currentTheme === "dark" ? "content" : "content content-light"
+        }
       >
-        {/* <Switch checked={isDarkMode} onChange={toggleTheme} />
-        <h1>Changing theme here {currentTheme}</h1> */}
         <Space
           size={20}
-          // className={
-          //   currentTheme === "dark" ? "container" : "container container-light"
-          // }
-          className="container"
+          className={
+            currentTheme === "dark" ? "container" : "container container-light"
+          }
           align="center"
           direction="vertical"
         >
@@ -58,14 +49,17 @@ function Presale() {
             className="logo"
             preview={false}
             width={300}
-            src={defireLogo}
+            src={currentTheme === "dark" ? defireLogo : defireLight}
           />
+          <Col className="dark-light">
+            <Switch checked={isDarkMode} onChange={toggleTheme} />
+          </Col>
           <Col className="connect-wallet">
             <Account />
           </Col>
 
-          <PhaseInfo />
-          <UserStats />
+          <PhaseInfo currentTheme={currentTheme} />
+          <UserStats currentTheme={currentTheme} />
         </Space>
       </Content>
 
