@@ -1,7 +1,7 @@
 import "../styles/presale.less";
 import "../styles/presale-light.less";
 import { useState } from "react";
-import { Layout, Image, BackTop, Space, Button, Tag, Switch, Col } from "antd";
+import { Layout, Image, BackTop, Space, Switch, Col } from "antd";
 import { UpOutlined } from "@ant-design/icons";
 
 import Account from "../components/Account/Account";
