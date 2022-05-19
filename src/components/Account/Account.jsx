@@ -11,7 +11,6 @@ import { connectors } from "./config";
 const styles = {
   account: {
     height: "42px",
-
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
